@@ -1,0 +1,67 @@
+services:
+  backend:
+    image: danycenas/spring-petclinic-rest:3.2.25
+    depends_on:
+      db:
+        condition: service_healthy
+        restart: true
+    restart: always
+    environment:
+      SPRING_PROFILES_ACTIVE: postgresql,spring-data-jpa
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/petclinic
+
+  db:
+    image: postgres:9.6.0
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=petclinic
+      - POSTGRES_DB=petclinic
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        BUILD_ENV: ephemeral
+
+  chrome:
+    image: selenium/node-chrome:4.21.0-20240522
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+
+  edge:
+    image: selenium/node-edge:4.21.0-20240522
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+
+  firefox:
+    image: selenium/node-firefox:4.21.0-20240522
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+
+  selenium-hub:
+    image: selenium/hub:4.21.0-20240522
+#    container_name: selenium-hub
+#    ports:
+#      - "4442:4442"
+#      - "4443:4443"
+#      - "4444:4444"
