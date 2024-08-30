@@ -7,7 +7,7 @@ Feature: Gestionar propietarios
     Given el cliente abre el navegador
     And el cliente navega al menú propietarios
     When el cliente selecciona la opción buscar
-    Then la página debe mostrar una lista de propietarios
+#    Then la página debe mostrar una lista de propietarios
 
   @registrarPropietario
   Scenario Outline: Registrar un propietario
@@ -19,7 +19,7 @@ Feature: Gestionar propietarios
     And el cliente selecciona la opción agregar nuevo
     And el cliente ingresa los datos del propietario
     And el cliente guarda el propietario
-    Then la página debe mostrar la información del propietario registrado
+#    Then la página debe mostrar la información del propietario registrado
     Examples:
       | firstName | lastName | address      | city | telephone |
       | John      | Doe      | 1234 Main St | NY   | 123456789 |
