@@ -44,14 +44,16 @@ public class OwnersSteps {
 
     @Given("el cliente tiene los siguientes datos del propietario:")
     public void elClienteTieneLosSiguientesDatosDelPropietario(DataTable dataTable) {
-        List<Map<String, String>> data = dataTable.asMaps(String.class, String.class);
-        for (Map<String, String> row : data) {
-            for (Map.Entry<String, String> entry : row.entrySet()) {
-                String header = entry.getKey();
-                String cell = entry.getValue();
-                Serenity.setSessionVariable(header).to(cell);
-            }
-        }
+//        List<Map<String, String>> data = dataTable.asMaps(String.class, String.class);
+//        for (Map<String, String> row : data) {
+//            for (Map.Entry<String, String> entry : row.entrySet()) {
+//                String header = entry.getKey();
+//                String cell = entry.getValue();
+//                Serenity.setSessionVariable(header).to(cell);
+//            }
+//        }
+        dataTable.asMaps(String.class, String.class)
+                .forEach(row -> row.forEach((header, cell) -> Serenity.setSessionVariable(header).to(cell)));
     }
 
     @And("el cliente selecciona la opción agregar nuevo")
