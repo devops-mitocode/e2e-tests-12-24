@@ -1,6 +1,6 @@
 services:
   backend:
-    image: danycenas/spring-petclinic-rest:3.2.25
+    image: danycenas/spring-petclinic-rest:3.2.1
     depends_on:
       db:
         condition: service_healthy
