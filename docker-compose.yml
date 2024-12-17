@@ -33,21 +33,15 @@ services:
     command: cat
     tty: true
     environment:
-#      - DOCKER_HOST=unix:///var/run/docker.sock
       - BUILD_TAG=${BUILD_TAG}
-    #      - TESTCONTAINERS_RYUK_DISABLED=true
     volumes:
       - ${WORKSPACE}:${WORKSPACE}
-#      - /var/run/docker.sock:/var/run/docker.sock
     working_dir: ${WORKSPACE}
 
   frontend:
     build:
       context: ./frontend
-      args:
-        BUILD_ENV: ephemeral
     ports:
-      - "4200:4200"
       - "80:8080"
     depends_on:
       - backend
