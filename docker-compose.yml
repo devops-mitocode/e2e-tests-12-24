@@ -46,6 +46,10 @@ services:
       context: ./frontend
       args:
         BUILD_ENV: ephemeral
+    ports:
+      - "4200:4200"
+    depends_on:
+      - backend
 
   chrome:
     image: selenium/node-chrome:4.27.0-20241204
