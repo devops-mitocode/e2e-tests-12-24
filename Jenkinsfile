@@ -5,9 +5,22 @@ pipeline {
         choice(name: 'BROSWER', choices: ['chrome', 'edge', 'firefox'], description: 'Selecciona el navegador')
         string(name: 'TAGS', defaultValue: '@listarPropietarios', description: 'Especifica los tags')
     }
+    environment{
+        ARTIFACTORY_TOKEN = credentials('artifactory-credentials')
+    }
     stages {
         stage('Prepare environment') {
             steps {
+
+                dir('target') {
+                    sh '''
+                        curl -v -L 'http://35.89.252.10:8081/artifactory/spring-petclinic-rest-snapshot/org/springframework/samples/spring-petclinic-rest/3.2.1/spring-petclinic-rest-3.2.1.jar' \\
+                                                                                                  -H "Authorization: Bearer ${ARTIFACTORY_TOKEN}" \\
+                                                                                                  -o spring-petclinic-rest-3.2.1.jar
+                        ls -la
+                    '''
+                }
+
                 dir('frontend'){
                     git branch: "master",
                     url: "https://github.com/spring-petclinic/spring-petclinic-angular.git"
