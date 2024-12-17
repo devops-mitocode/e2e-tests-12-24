@@ -48,6 +48,7 @@ services:
         BUILD_ENV: ephemeral
     ports:
       - "4200:4200"
+      - "8080:8080"
     depends_on:
       - backend
 
