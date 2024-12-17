@@ -9,8 +9,7 @@ import io.cucumber.java.en.When;
 import net.serenitybdd.annotations.Steps;
 import net.serenitybdd.core.Serenity;
 
-import java.util.List;
-import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -37,6 +36,8 @@ public class OwnersSteps {
 
     @Then("la página debe mostrar una lista de propietarios")
     public void laPaginaDebeMostrarUnaListaDePropietarios() {
+//        TimeUnit.MINUTES.sleep(1);
+        ownerPage.scrollToBottom();
         int rows = ownerPage.getOwnersTable();
 //        assertEquals(10, rows);
         assertThat(ownerPage.getOwnersTable()).isPositive();
@@ -44,14 +45,6 @@ public class OwnersSteps {
 
     @Given("el cliente tiene los siguientes datos del propietario:")
     public void elClienteTieneLosSiguientesDatosDelPropietario(DataTable dataTable) {
-//        List<Map<String, String>> data = dataTable.asMaps(String.class, String.class);
-//        for (Map<String, String> row : data) {
-//            for (Map.Entry<String, String> entry : row.entrySet()) {
-//                String header = entry.getKey();
-//                String cell = entry.getValue();
-//                Serenity.setSessionVariable(header).to(cell);
-//            }
-//        }
         dataTable.asMaps(String.class, String.class)
                 .forEach(row -> row.forEach((header, cell) -> Serenity.setSessionVariable(header).to(cell)));
     }
@@ -73,6 +66,7 @@ public class OwnersSteps {
 
     @Then("la página debe mostrar la información del propietario registrado")
     public void laPaginaDebeMostrarLaInformacionDelPropietarioRegistrado() {
+        ownerPage.scrollToBottom();
         String firstName = Serenity.sessionVariableCalled("firstName");
         String lastName = Serenity.sessionVariableCalled("lastName");
         String fullName = firstName + " " + lastName;

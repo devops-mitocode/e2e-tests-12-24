@@ -1,26 +1,45 @@
 services:
-  backend:
-    image: danycenas/spring-petclinic-rest:3.2.1
-    depends_on:
-      db:
-        condition: service_healthy
-        restart: true
-    restart: always
-    environment:
-      SPRING_PROFILES_ACTIVE: postgresql,spring-data-jpa
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/petclinic
-
   db:
-    image: postgres:9.6.0
+    image: postgres:16.3
     environment:
-      - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=petclinic
+      - POSTGRES_USER=petclinic
       - POSTGRES_DB=petclinic
+    volumes:
+      - ./src/test/resources/db/postgres/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./src/test/resources/db/postgres/data.sql:/docker-entrypoint-initdb.d/02-data.sql
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      test: [ "CMD-SHELL", "pg_isready -U petclinic" ]
       interval: 10s
       timeout: 10s
       retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: always
+    environment:
+      - SPRING_SQL_INIT_MODE=never
+      - SPRING_PROFILES_ACTIVE=postgres,spring-data-jpa
+      - POSTGRES_URL=jdbc:postgresql://db:5432/petclinic
+
+  maven:
+    image: maven:3.8.8-eclipse-temurin-17
+    container_name: ${BUILD_TAG}
+    command: cat
+    tty: true
+    environment:
+#      - DOCKER_HOST=unix:///var/run/docker.sock
+      - BUILD_TAG=${BUILD_TAG}
+    #      - TESTCONTAINERS_RYUK_DISABLED=true
+    volumes:
+      - ${WORKSPACE}:${WORKSPACE}
+#      - /var/run/docker.sock:/var/run/docker.sock
+    working_dir: ${WORKSPACE}
 
   frontend:
     build:
@@ -29,7 +48,7 @@ services:
         BUILD_ENV: ephemeral
 
   chrome:
-    image: selenium/node-chrome:4.23.1-20240820
+    image: selenium/node-chrome:4.27.0-20241204
     shm_size: 2gb
     depends_on:
       - selenium-hub
@@ -37,9 +56,10 @@ services:
       - SE_EVENT_BUS_HOST=selenium-hub
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_ENABLE_TRACING=false
 
   edge:
-    image: selenium/node-edge:4.23.1-20240820
+    image: selenium/node-edge:4.27.0-20241204
     shm_size: 2gb
     depends_on:
       - selenium-hub
@@ -47,9 +67,10 @@ services:
       - SE_EVENT_BUS_HOST=selenium-hub
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_ENABLE_TRACING=false
 
   firefox:
-    image: selenium/node-firefox:4.23.1-20240820
+    image: selenium/node-firefox:4.27.0-20241204
     shm_size: 2gb
     depends_on:
       - selenium-hub
@@ -57,9 +78,10 @@ services:
       - SE_EVENT_BUS_HOST=selenium-hub
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_ENABLE_TRACING=false
 
   selenium-hub:
-    image: selenium/hub:4.23.1-20240820
+    image: selenium/hub:4.27.0-20241204
 #    container_name: selenium-hub
 #    ports:
 #      - "4442:4442"
