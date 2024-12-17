@@ -23,7 +23,7 @@ pipeline {
 
                 dir('frontend'){
                     git branch: "master",
-                    url: "https://github.com/spring-petclinic/spring-petclinic-angular.git"
+                    url: "https://github.com/devops-mitocode/spring-petclinic-angular.git"
                 }
                 sh 'cd frontend && ls -la'
                 sh 'env | sort'
