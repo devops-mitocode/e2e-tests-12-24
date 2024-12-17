@@ -39,7 +39,7 @@ pipeline {
     }
     post {
         always {
-            sh "docker compose --project-name ${BUILD_TAG} down --rmi all --volumes"
+            sh "docker compose --project-name ${BUILD_TAG} down"
             sh 'docker builder prune -f'
             sh 'docker system df'
             cleanWs()
