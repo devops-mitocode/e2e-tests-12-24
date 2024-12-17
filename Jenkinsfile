@@ -12,6 +12,7 @@ pipeline {
                     git branch: "master",
                     url: "https://github.com/spring-petclinic/spring-petclinic-angular.git"
                 }
+                sh 'cd frontend && ls -la'
                 sh 'env | sort'
                 sh 'docker system df'
                 sh "docker compose --project-name ${BUILD_TAG} up -d --quiet-pull"
