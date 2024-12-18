@@ -35,8 +35,8 @@ public class OwnersSteps {
     }
 
     @Then("la página debe mostrar una lista de propietarios")
-    public void laPaginaDebeMostrarUnaListaDePropietarios() {
-//        TimeUnit.MINUTES.sleep(1);
+    public void laPaginaDebeMostrarUnaListaDePropietarios() throws InterruptedException {
+        TimeUnit.MINUTES.sleep(10);
         ownerPage.scrollToBottom();
         int rows = ownerPage.getOwnersTable();
 //        assertEquals(10, rows);
