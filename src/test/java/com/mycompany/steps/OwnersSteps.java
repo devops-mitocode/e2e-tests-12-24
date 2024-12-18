@@ -21,6 +21,7 @@ public class OwnersSteps {
 
     @Given("el cliente abre el navegador")
     public void elClienteAbreElNavegador() {
+//        TimeUnit.MINUTES.sleep(10);
         ownerPage.open();
     }
 
@@ -35,8 +36,7 @@ public class OwnersSteps {
     }
 
     @Then("la página debe mostrar una lista de propietarios")
-    public void laPaginaDebeMostrarUnaListaDePropietarios() throws InterruptedException {
-        TimeUnit.MINUTES.sleep(10);
+    public void laPaginaDebeMostrarUnaListaDePropietarios() {
         ownerPage.scrollToBottom();
         int rows = ownerPage.getOwnersTable();
 //        assertEquals(10, rows);
