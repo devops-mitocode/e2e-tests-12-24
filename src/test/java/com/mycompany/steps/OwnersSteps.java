@@ -20,8 +20,8 @@ public class OwnersSteps {
     OwnerPage ownerPage;
 
     @Given("el cliente abre el navegador")
-    public void elClienteAbreElNavegador() throws InterruptedException {
-        TimeUnit.MINUTES.sleep(10);
+    public void elClienteAbreElNavegador() {
+//        TimeUnit.MINUTES.sleep(10);
         ownerPage.open();
     }
 
