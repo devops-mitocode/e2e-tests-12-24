@@ -14,7 +14,7 @@ pipeline {
 
                 dir('target') {
                     sh '''
-                        curl -v -L 'http://35.89.252.10:8081/artifactory/spring-petclinic-rest-snapshot/org/springframework/samples/spring-petclinic-rest/3.2.1/spring-petclinic-rest-3.2.1.jar' \\
+                        curl -v -L 'http://35.162.199.36:8081/artifactory/spring-petclinic-rest-snapshot/org/springframework/samples/spring-petclinic-rest/3.2.1/spring-petclinic-rest-3.2.1.jar' \\
                                                                                                   -H "Authorization: Bearer ${ARTIFACTORY_TOKEN}" \\
                                                                                                   -o spring-petclinic-rest-3.2.1.jar
                         ls -la
