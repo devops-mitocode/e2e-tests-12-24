@@ -1,13 +1,13 @@
 package com.mycompany;
 
-import io.cucumber.junit.CucumberOptions;
-import net.serenitybdd.cucumber.CucumberWithSerenity;
-import org.junit.runner.RunWith;
+import org.junit.platform.suite.api.*;
 
-@RunWith(CucumberWithSerenity.class)
-@CucumberOptions(plugin = { "pretty" },
-        features = "src/test/resources/features",
-        glue = { "com.mycompany.steps" },
-        snippets = CucumberOptions.SnippetType.CAMELCASE)
+import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
+
+@Suite
+@IncludeEngines("cucumber")
+@SelectClasspathResource("features")
+@SelectPackages("com.mycompany.steps")
+@ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "io.cucumber.core.plugin.SerenityReporterParallel,pretty,timeline:build/test-results/timeline")
 public class End2EndTests {
 }

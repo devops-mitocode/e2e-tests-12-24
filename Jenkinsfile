@@ -35,13 +35,10 @@ pipeline {
         }
         stage('End2End Tests') {
             steps {
-//                 sh 'sleep 20m'
                 script {
                     def tagsOption = TAGS?.trim() ? "-Dcucumber.filter.tags='${TAGS}'" : ""
                     sh "docker exec ${BUILD_TAG} mvn clean verify -Denvironment=${ENVIRONMENT} -Dwebdriver.remote.url=http://${BUILD_TAG}-selenium-hub-1:4444/wd/hub -Dwebdriver.remote.driver=${BROSWER} ${tagsOption} -B -ntp"
                 }
-//                sh "docker run --rm -v ${WORKSPACE}:/usr/src/app -w /usr/src/app --name ${BUILD_TAG} --network ${BUILD_TAG}_default maven:3.8.8-eclipse-temurin-17 sleep 5m"
-//                 sh "docker run --rm -v ${WORKSPACE}:/usr/src/app -w /usr/src/app  --name ${BUILD_TAG} --network ${BUILD_TAG}_default maven:3.8.8-eclipse-temurin-17 mvn clean verify -B -ntp -Dwebdriver.remote.url=http://${BUILD_TAG}-selenium-hub-1:4444/wd/hub -Dwebdriver.remote.driver=${BROSWER} -Denvironment=${ENVIRONMENT} -Dwebdriver.base.url=http://frontend:8080 -Dcucumber.filter.tags=\"${TAGS}\""
                 publishHTML(
                     target: [
                         reportName           : 'Serenity Report',
@@ -57,8 +54,7 @@ pipeline {
     }
     post {
         always {
-            sh "docker compose --project-name ${BUILD_TAG} down"
-            sh 'docker builder prune -f'
+            sh "docker compose --project-name ${BUILD_TAG} down --rmi all --volumes"
             sh 'docker system df'
             cleanWs()
         }

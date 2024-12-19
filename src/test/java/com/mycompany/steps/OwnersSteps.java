@@ -6,27 +6,22 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import net.serenitybdd.annotations.Steps;
 import net.serenitybdd.core.Serenity;
 
-import java.util.concurrent.TimeUnit;
-
-import static org.junit.Assert.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class OwnersSteps {
 
-    @Steps
     OwnerPage ownerPage;
 
     @Given("el cliente abre el navegador")
     public void elClienteAbreElNavegador() {
-//        TimeUnit.MINUTES.sleep(10);
         ownerPage.open();
     }
 
     @Given("el cliente navega al menú propietarios")
-    public void elClienteNavegaAlMenuPropietarios() {
+    public void elClienteNavegaAlMenuPropietarios() throws InterruptedException {
         ownerPage.clickOnOwnerMenu();
     }
 
@@ -71,5 +66,6 @@ public class OwnersSteps {
         String lastName = Serenity.sessionVariableCalled("lastName");
         String fullName = firstName + " " + lastName;
         assertEquals(fullName, ownerPage.getFullName());
+        assertThat(ownerPage.getFullName()).isEqualTo(fullName);
     }
 }

@@ -13,10 +13,12 @@ import java.util.List;
 public class OwnerPage extends PageObject {
 
     // List owners
-    @FindBy(xpath = "/html/body/app-root/div[1]/nav/div/ul/li[2]/a")
+//    @FindBy(xpath = "/html/body/app-root/div[1]/nav/div/ul/li[2]/a")
+    @FindBy(xpath = "//a[contains(text(), 'Owners')]")
     WebElementFacade ownerMenu;
 
-    @FindBy(xpath = "/html/body/app-root/div[1]/nav/div/ul/li[2]/ul/li[1]/a")
+//    @FindBy(xpath = "/html/body/app-root/div[1]/nav/div/ul/li[2]/ul/li[1]/a")
+    @FindBy(css = "a[routerlink='/owners']")
     WebElementFacade ownerSearchOptionMenu;
 
     @FindBy(css = "#ownersTable tbody")
@@ -45,7 +47,7 @@ public class OwnerPage extends PageObject {
     WebElementFacade addOwnerButton;
 
     public void clickOnOwnerMenu() {
-        ownerMenu.waitUntilClickable().click();
+        ownerMenu.waitUntilVisible().waitUntilClickable().click();
     }
 
     public void clickOnOwnerSearchOptionMenu() {
