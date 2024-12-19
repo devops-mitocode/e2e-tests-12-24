@@ -55,7 +55,8 @@ public class OwnerPage extends PageObject {
     }
 
     public int getOwnersTable() {
-        return ownersTable.waitUntilVisible().thenFindAll(By.xpath("./tr")).size();
+        waitFor(ownersTable).shouldBeVisible();
+        return ownersTable.thenFindAll("tr").size();
     }
 
     // Add Owner
