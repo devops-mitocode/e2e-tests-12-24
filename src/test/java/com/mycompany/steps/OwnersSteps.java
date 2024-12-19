@@ -33,7 +33,7 @@ public class OwnersSteps {
     @Then("la página debe mostrar una lista de propietarios")
     public void laPaginaDebeMostrarUnaListaDePropietarios() {
         ownerPage.scrollToBottom();
-        int rows = ownerPage.getOwnersTable();
+//        int rows = ownerPage.getOwnersTable();
 //        assertEquals(10, rows);
         assertThat(ownerPage.getOwnersTable()).isPositive();
     }
