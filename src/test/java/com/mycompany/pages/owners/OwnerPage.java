@@ -55,7 +55,6 @@ public class OwnerPage extends PageObject {
     }
 
     public int getOwnersTableRowsCount() {
-//        waitFor(ownersTable).shouldBeVisible();
         return getTableRows().size();
     }
 
