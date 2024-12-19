@@ -19,7 +19,7 @@ public class PetTypesPage extends PageObject {
     }
 
     public int getPetTypesTable() {
-//        waitFor(petTypesTable).shouldBeVisible();
+        waitFor(petTypesTable).shouldBeVisible();
         return petTypesTable.thenFindAll("tbody tr").size();
 //        return petTypesTable.waitUntilVisible().thenFindAll("tr").size();
     }
