@@ -5,6 +5,8 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 
+import java.util.List;
+
 public class PetTypesPage extends PageObject {
 
     @FindBy(css = "a[routerlink='/pettypes']")
@@ -19,8 +21,12 @@ public class PetTypesPage extends PageObject {
     }
 
     public int getPetTypesTable() {
-        waitFor(petTypesTable).shouldBeVisible();
-        return petTypesTable.thenFindAll("tbody tr").size();
+        return getTableRows().size();
 //        return petTypesTable.waitUntilVisible().thenFindAll("tr").size();
+    }
+
+    private List<WebElementFacade> getTableRows() {
+        waitFor(petTypesTable).shouldBeVisible();
+        return petTypesTable.thenFindAll("tbody tr");
     }
 }
