@@ -21,7 +21,7 @@ public class OwnerPage extends PageObject {
     @FindBy(css = "a[routerlink='/owners']")
     WebElementFacade ownerSearchOptionMenu;
 
-    @FindBy(id = "#ownersTable")
+    @FindBy(id = "ownersTable")
     WebElementFacade ownersTable;
 
     // Add owner
