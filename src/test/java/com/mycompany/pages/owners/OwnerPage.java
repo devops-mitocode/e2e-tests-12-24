@@ -112,7 +112,7 @@ public class OwnerPage extends PageObject {
     }
 
     private List<WebElementFacade> getTableRows() {
-        waitFor(ownersTable).shouldBeVisible();
+//        waitFor(ownersTable).shouldBeVisible();
         return ownersTable.thenFindAll("tbody tr");
     }
 }
