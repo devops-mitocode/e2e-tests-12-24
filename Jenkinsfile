@@ -2,7 +2,7 @@ pipeline {
     agent any
     parameters {
         choice(name: 'ENVIRONMENT', choices: ['ephemeral', 'dev'], description: 'Selecciona el entorno')
-        string(name: 'BROSWER', defaultValue: 'chrome,firefox,edge', description: 'Selecciona el navegador')
+        choice(name: 'BROSWER', choices: ['chrome', 'edge', 'firefox'], description: 'Selecciona el navegador')
         string(name: 'TAGS', defaultValue: '@listarPropietarios', description: 'Especifica los tags')
     }
     environment{
