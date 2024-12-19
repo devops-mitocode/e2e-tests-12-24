@@ -11,22 +11,18 @@ import net.serenitybdd.core.Serenity;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class OwnersSteps {
+public class OwnersDefinitions {
 
     OwnerPage ownerPage;
 
-    @Given("el cliente abre el navegador")
-    public void elClienteAbreElNavegador() {
-        ownerPage.open();
-    }
-
     @Given("el cliente navega al menú propietarios")
-    public void elClienteNavegaAlMenuPropietarios() throws InterruptedException {
+    public void elClienteNavegaAlMenuPropietarios() {
+        ownerPage.open();
         ownerPage.clickOnOwnerMenu();
     }
 
-    @When("el cliente selecciona la opción buscar")
-    public void elClienteSeleccionaLaOpcionBuscar() {
+    @When("el cliente selecciona la opción listar de propietarios")
+    public void el_cliente_selecciona_la_opcion_listar_de_propietarios() {
         ownerPage.clickOnOwnerSearchOptionMenu();
     }
 
@@ -44,8 +40,8 @@ public class OwnersSteps {
                 .forEach(row -> row.forEach((header, cell) -> Serenity.setSessionVariable(header).to(cell)));
     }
 
-    @And("el cliente selecciona la opción agregar nuevo")
-    public void elClienteSeleccionaLaOpciónAgregarNuevo() {
+    @When("el cliente selecciona la opción agregar nuevo")
+    public void elClienteSeleccionaLaOpcionAgregarNuevo() {
         ownerPage.clickAddOwnerButtonOption();
     }
 

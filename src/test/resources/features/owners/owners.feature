@@ -4,9 +4,8 @@ Feature: Gestionar propietarios
 
   @listarPropietarios
   Scenario: Listar propietarios
-    Given el cliente abre el navegador
-    And el cliente navega al menú propietarios
-    When el cliente selecciona la opción buscar
+    Given el cliente navega al menú propietarios
+    When el cliente selecciona la opción listar de propietarios
     Then la página debe mostrar una lista de propietarios
 
   @registrarPropietario
@@ -14,9 +13,8 @@ Feature: Gestionar propietarios
     Given el cliente tiene los siguientes datos del propietario:
       | firstName   | lastName   | address   | city   | telephone   |
       | <firstName> | <lastName> | <address> | <city> | <telephone> |
-    And el cliente abre el navegador
     And el cliente navega al menú propietarios
-    And el cliente selecciona la opción agregar nuevo
+    When el cliente selecciona la opción agregar nuevo
     And el cliente ingresa los datos del propietario
     And el cliente guarda el propietario
     Then la página debe mostrar la información del propietario registrado
