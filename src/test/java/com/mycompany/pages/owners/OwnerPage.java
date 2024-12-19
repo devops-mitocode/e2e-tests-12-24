@@ -54,9 +54,9 @@ public class OwnerPage extends PageObject {
         ownerSearchOptionMenu.waitUntilClickable().click();
     }
 
-    public int getOwnersTable() {
+    public int getOwnersTableRowsCount() {
 //        waitFor(ownersTable).shouldBeVisible();
-        return ownersTable.thenFindAll("tbody tr").size();
+        return getTableRows().size();
     }
 
     // Add Owner
@@ -107,8 +107,13 @@ public class OwnerPage extends PageObject {
     }
 
     public String getFullName() {
-        List<WebElementFacade> rows = ownersTable.thenFindAll(By.xpath("./tr"));
+        List<WebElementFacade> rows = getTableRows();
         WebElementFacade lastRow = rows.get(rows.size()-1);
         return lastRow.findElement(By.cssSelector("td a")).getText();
+    }
+
+    private List<WebElementFacade> getTableRows() {
+        waitFor(ownersTable).shouldBeVisible();
+        return ownersTable.thenFindAll("tbody tr");
     }
 }

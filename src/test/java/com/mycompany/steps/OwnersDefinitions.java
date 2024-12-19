@@ -29,9 +29,9 @@ public class OwnersDefinitions {
     @Then("la página debe mostrar una lista de propietarios")
     public void laPaginaDebeMostrarUnaListaDePropietarios() {
         ownerPage.scrollToBottom();
-//        int rows = ownerPage.getOwnersTable();
+//        int rows = ownerPage.getOwnersTableRowsCount();
 //        assertEquals(10, rows);
-        assertThat(ownerPage.getOwnersTable()).isPositive();
+        assertThat(ownerPage.getOwnersTableRowsCount()).isPositive();
     }
 
     @Given("el cliente tiene los siguientes datos del propietario:")
