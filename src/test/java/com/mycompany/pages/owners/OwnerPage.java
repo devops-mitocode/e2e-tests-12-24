@@ -8,7 +8,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
 
+import java.time.Duration;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class OwnerPage extends PageObject {
 
@@ -113,6 +115,7 @@ public class OwnerPage extends PageObject {
 
     private List<WebElementFacade> getTableRows() {
 //        waitFor(ownersTable).shouldBeVisible();
+        waitFor(ownersTable).withTimeoutOf(Duration.ofSeconds(10)).shouldBeVisible();
         return ownersTable.thenFindAll("tbody tr");
     }
 }
