@@ -30,7 +30,7 @@ public class OwnersDefinitions {
     public void laPaginaDebeMostrarUnaListaDePropietarios() {
         ownerPage.scrollToBottom();
 //        int rows = ownerPage.getOwnersTableRowsCount();
-//        assertEquals(10, rows);
+////        assertEquals(10, rows);
         assertThat(ownerPage.getOwnersTableRowsCount()).isPositive();
     }
 
