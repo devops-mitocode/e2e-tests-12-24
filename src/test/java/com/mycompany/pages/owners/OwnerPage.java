@@ -15,11 +15,9 @@ import java.util.concurrent.TimeUnit;
 public class OwnerPage extends PageObject {
 
     // List owners
-//    @FindBy(xpath = "/html/body/app-root/div[1]/nav/div/ul/li[2]/a")
     @FindBy(xpath = "//a[contains(text(), 'Owners')]")
     WebElementFacade ownerMenu;
 
-//    @FindBy(xpath = "/html/body/app-root/div[1]/nav/div/ul/li[2]/ul/li[1]/a")
     @FindBy(css = "a[routerlink='/owners']")
     WebElementFacade ownerSearchOptionMenu;
 
@@ -27,7 +25,7 @@ public class OwnerPage extends PageObject {
     WebElementFacade ownersTable;
 
     // Add owner
-    @FindBy(xpath = "/html/body/app-root/div[1]/nav/div/ul/li[2]/ul/li[2]/a")
+    @FindBy(css = "a[routerlink='/owners/add']")
     WebElementFacade addOwnerButtonOption;
 
     @FindBy(id = "firstName")
@@ -45,7 +43,7 @@ public class OwnerPage extends PageObject {
     @FindBy(id = "telephone")
     WebElementFacade telephoneField;
 
-    @FindBy(xpath = "/html/body/app-root/div[2]/app-owner-add/div/div/form/div[7]/div/button[2]")
+    @FindBy(xpath = "//button[contains(text(), 'Add Owner')]")
     WebElementFacade addOwnerButton;
 
     public void clickOnOwnerMenu() {
@@ -99,7 +97,10 @@ public class OwnerPage extends PageObject {
     }
 
     public void clickAddOwnerButton() {
-        addOwnerButton.waitUntilClickable().click();
+        addOwnerButton.waitUntilVisible()
+                .waitUntilEnabled()
+                .waitUntilClickable()
+                .click();
     }
 
     public void scrollToBottom() {
