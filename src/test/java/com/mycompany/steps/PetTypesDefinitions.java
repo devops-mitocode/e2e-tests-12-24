@@ -16,9 +16,10 @@ public class PetTypesDefinitions {
         petTypesPage.open();
         petTypesPage.clickOnPetTypesMenu();
     }
+
     @Then("la página debe mostrar una lista de tipos de mascotas")
     public void la_pagina_debe_mostrar_una_lista_de_tipos_de_mascotas() {
-//        assertEquals(6, petTypesPage.getPetTypesTable());
+//        assertEquals(10, petTypesPage.getPetTypesTable());
         assertThat(petTypesPage.getPetTypesTable()).isPositive();
     }
 }

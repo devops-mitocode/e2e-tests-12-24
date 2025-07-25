@@ -1,6 +1,5 @@
 package com.mycompany.pages.pettypes;
 
-import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -13,7 +12,6 @@ public class PetTypesPage extends PageObject {
     WebElementFacade petTypesOptionMenu;
 
     @FindBy(id = "pettypes")
-//    @FindBy(css = "#pettypes tbody")
     WebElementFacade petTypesTable;
 
     public void clickOnPetTypesMenu() {
@@ -22,7 +20,6 @@ public class PetTypesPage extends PageObject {
 
     public int getPetTypesTable() {
         return getTableRows().size();
-//        return petTypesTable.waitUntilVisible().thenFindAll("tr").size();
     }
 
     private List<WebElementFacade> getTableRows() {

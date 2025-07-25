@@ -19,8 +19,7 @@ Feature: Gestionar propietarios
     And el cliente guarda el propietario
     Then la página debe mostrar la información del propietario registrado
     Examples:
-      | firstName | lastName | address | city    | telephone  |
-      | George    | Franklin | 110     | Madison | 6085551023 |
-#      | John      | Doe      | 1234 Main St | NY   | 123456789 |
-#      | Jane      | Smith    | 5678 Elm St  | LA   | 987654321 |
-#      | Alice     | Johnson  | 9101 Oak St  | SF   | 555555555 |
+      | firstName | lastName | address      | city | telephone  |
+      | John      | Doe      | 1234 Main St | NY   | 1234567891 |
+      | Jane      | Smith    | 5678 Elm St  | LA   | 9876543210 |
+      | Alice     | Johnson  | 9101 Oak St  | SF   | 5555555555 |
