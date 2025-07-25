@@ -12,14 +12,7 @@ pipeline {
         stage('Prepare environment') {
             steps {
 
-                dir('target') {
-                    sh '''
-                        curl -v -L 'http://35.162.199.36:8081/artifactory/spring-petclinic-rest-snapshot/org/springframework/samples/spring-petclinic-rest/3.2.1/spring-petclinic-rest-3.2.1.jar' \\
-                                                                                                  -H "Authorization: Bearer ${ARTIFACTORY_TOKEN}" \\
-                                                                                                  -o spring-petclinic-rest-3.2.1.jar
-                        ls -la
-                    '''
-                }
+
 
                 dir('frontend'){
                     git branch: "master",
@@ -37,7 +30,7 @@ pipeline {
             steps {
                 script {
                     def tagsOption = TAGS?.trim() ? "-Dcucumber.filter.tags='${TAGS}'" : ""
-                    sh "docker exec ${BUILD_TAG} mvn clean verify -Denvironment=${ENVIRONMENT} -Dwebdriver.remote.url=http://${BUILD_TAG}-selenium-hub-1:4444/wd/hub -Dwebdriver.remote.driver=${BROSWER} ${tagsOption} -B -ntp"
+                    // sh "docker exec ${BUILD_TAG} mvn clean verify -Denvironment=${ENVIRONMENT} -Dwebdriver.remote.url=http://${BUILD_TAG}-selenium-hub-1:4444/wd/hub -Dwebdriver.remote.driver=${BROSWER} ${tagsOption} -B -ntp"
                 }
                 publishHTML(
                     target: [
